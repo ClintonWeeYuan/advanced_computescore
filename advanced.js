@@ -1,48 +1,3 @@
-class Human {
-    constructor(name){
-        this._name = name;
-        this._background = {
-        };
-    }
-
-    get name(){
-        return this._name;
-    }
-    
-    get background(){
-        return this._background
-    }
-
-}
-
-class Student extends Human{
-    constructor(name){
-        super(name);
-    }
-
-}
-
-class Professor extends Human{
-    constructor(name){
-        super(name);
-        this._mentee = null
-    }
-
-    get mentee(){
-        return this._mentee;
-    }
-
-
-    addMentee(mentee){
-        if (mentee instanceof Human){
-            this._mentee = mentee;
-        }
-
-        else{
-            return('No such mentee exists')
-        }
-    }
-}
 
 const criteria = {
     postgradUni				:10,
@@ -59,10 +14,9 @@ const criteria = {
     undergradProgramTitle	:10
 };
 
-let score = 0;
 
-function computeScore(mentor1, mentor2){
- 
+function computeScore(mentor1, mentor2, score = 0){
+    
     const mentor1_keys = Object.keys(mentor1.background);
 
     for (let key of mentor1_keys){
@@ -89,15 +43,10 @@ function computeScore(mentor1, mentor2){
     }
     
     if (mentor1.mentee instanceof Human){
-        computeScore(mentor1.mentee, mentor2.mentee)
+        score += computeScore(mentor1.mentee, mentor2.mentee, 0);
     }
 
     return score;
 }
 
-
-
-module.exports.Human = Human;
-module.exports.Professor = Professor;
-module.exports.Student = Student;
-module.exports.computeScore = computeScore;
+module.export = computeScore;
